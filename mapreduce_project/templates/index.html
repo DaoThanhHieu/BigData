@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>MapReduce Web GUI</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+        select, button, input { padding: 8px 12px; font-size: 16px; }
+        select:disabled, input:disabled {
+            background-color: #ddd;
+            color: #666;
+        }
+        pre { background: #fff; border: 1px solid #ddd; padding: 15px; white-space: pre-wrap; max-height: 400px; overflow-y: auto; }
+        h1 { color: #2c3e50; }
+        form { margin-bottom: 20px; }
+        label { display: inline-block; margin-bottom: 6px; }
+    </style>
+    <script>
+        function toggleFileSelect() {
+            const jobSelect = document.getElementById("job");
+            const fileSelect = document.getElementById("input_file");
+            const fileInputDisplay = document.getElementById("input_file_display");
+
+            if (jobSelect.value === "compare_avg_price") {
+                if (fileSelect) fileSelect.style.display = "none";
+                if (fileInputDisplay) fileInputDisplay.style.display = "block";
+            } else {
+                if (fileSelect) fileSelect.style.display = "inline-block";
+                if (fileInputDisplay) fileInputDisplay.style.display = "none";
+            }
+        }
+
+        window.onload = function() {
+            toggleFileSelect();
+            document.getElementById("job").addEventListener("change", toggleFileSelect);
+        }
+    </script>
+</head>
+<body>
+    <h1>Chạy các chức năng MapReduce</h1>
+
+    <form method="POST">
+        <label for="job">Chọn chức năng:</label>
+        <select name="job" id="job" required>
+            <option value="">-- Chọn chức năng --</option>
+            {% for job in jobs %}
+                <option value="{{ job }}" {% if job == selected_job %}selected{% endif %}>{{ job }}</option>
+            {% endfor %}
+        </select>
+        <br /><br />
+
+        <label for="input_file">Chọn file đầu vào:</label><br />
+
+        {% if disable_file_select %}
+            <input type="text" id="input_file_display" value="{{ selected_file }}" disabled style="width: 100%;" />
+            <select id="input_file" name="input_file" style="display: none;">
+                <option value=""></option>
+            </select>
+        {% else %}
+            <input type="text" id="input_file_display" disabled style="display:none;" />
+            <select name="input_file" id="input_file" required>
+                <option value="">-- Chọn file --</option>
+                {% for f in files %}
+                    <option value="{{ f }}" {% if f == selected_file %}selected{% endif %}>{{ f }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+
+        <br /><br />
+        <button type="submit">Chạy</button>
+    </form>
+
+    {% if result is not none %}
+        <h2>Kết quả:</h2>
+        <pre>{{ result }}</pre>
+    {% endif %}
+</body>
+</html>
