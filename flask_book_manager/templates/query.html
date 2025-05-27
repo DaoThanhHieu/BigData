@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>SQL Query on {{ db|capitalize }} DB</h3>
+<form method="POST">
+    <textarea name="query" class="form-control" rows="5" placeholder="Enter SQL here...">{{ request.form.query }}</textarea>
+    <button type="submit" class="btn btn-primary mt-2">Execute</button>
+</form>
+
+{% if error %}
+<div class="alert alert-danger mt-3">{{ error }}</div>
+{% endif %}
+
+{% if result %}
+    {% if headers %}
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>{% for h in headers %}<th>{{ h }}</th>{% endfor %}</tr>
+        </thead>
+        <tbody>
+            {% for row in result %}
+            <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-success mt-3">{{ result }}</div>
+    {% endif %}
+{% endif %}
+{% endblock %}

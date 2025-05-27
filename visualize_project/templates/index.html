@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>So sánh dữ liệu sách Tiki và UK</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .chart-container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .chart {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        footer {
+            text-align: center;
+            color: #777;
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>So sánh dữ liệu sách Tiki và UK</h1>
+
+    <div class="chart-container">
+        <div class="chart">
+            <h2>Phân bố giá sách</h2>
+            <img src="data:image/png;base64,{{ plots.price_distribution|safe }}" alt="Phân bố giá sách" />
+        </div>
+
+        <div class="chart">
+            <h2>Số lượng sách theo điểm đánh giá</h2>
+            <img src="data:image/png;base64,{{ plots.rating_count|safe }}" alt="Số lượng sách theo điểm đánh giá" />
+        </div>
+
+        <div class="chart">
+            <h2>Tỉ lệ số lượng sách theo nguồn</h2>
+            <img src="data:image/png;base64,{{ plots.source_pie|safe }}" alt="Tỉ lệ số lượng sách theo nguồn" />
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 by Bạn
+    </footer>
+</body>
+</html>

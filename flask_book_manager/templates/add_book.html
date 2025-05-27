@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add New Book</h2>
+<form method="POST">
+    <input type="text" name="title" placeholder="Title" required>
+    <input type="number" name="price" placeholder="Price" step="0.01" required>
+    <input type="number" name="rating" placeholder="Rating" step="0.1" required>
+    <input type="url" name="url" placeholder="URL" required>
+    <button type="submit">Add Book</button>
+</form>
+{% endblock %}

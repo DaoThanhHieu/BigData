@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="mb-3">
+    <a href="{{ url_for('list_books', db='uk') }}" class="btn btn-secondary">UK Books</a>
+    <a href="{{ url_for('list_books', db='tiki') }}" class="btn btn-secondary">Tiki Books</a>
+    {% if db %}
+        <a href="{{ url_for('add_book', db=db) }}" class="btn btn-success">Add Book</a>
+        <a href="{{ url_for('query', db=db) }}" class="btn btn-outline-primary">Query</a>
+    {% endif %}
+</div>
+
+{% if books %}
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            {% for col in columns %}
+            <th>{{ col }}</th>
+            {% endfor %}
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in books %}
+        <tr>
+            {% for item in row %}
+            <td>{{ item }}</td>
+            {% endfor %}
+            <td>
+                <a href="{{ url_for('edit_book', db=db, book_id=row[0]) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ url_for('delete_book', db=db, book_id=row[0]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Delete?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

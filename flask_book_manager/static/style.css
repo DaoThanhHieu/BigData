@@ -1,0 +1,12 @@
+body {
+    background-color: #f8f9fa;
+}
+
+h1 {
+    font-family: "Georgia", serif;
+    font-weight: bold;
+}
+
+.table th {
+    background-color: #e9ecef;
+}
